@@ -13,7 +13,7 @@ export default class Ensurances {
       if (!checkFields) {
         return response
           .status(400)
-          .send({ message: `Missing required fields: ${fields}` });
+          .send({ message: `Missing required fields: ${fields.join(" | ")}` });
       }
 
       next();

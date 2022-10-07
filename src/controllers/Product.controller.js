@@ -17,7 +17,7 @@ export default class ProductController {
       const productList = await service.read();
       return response.status(200).send(productList);
     } catch ({ message }) {
-      return response.status(404).send({ message });
+      return response.status(400).send({ message });
     }
   }
 
@@ -28,14 +28,14 @@ export default class ProductController {
 
       return response.status(200).send(targetedProduct);
     } catch ({ message }) {
-      return response.status(404).send({ message });
+      return response.status(400).send({ message });
     }
   }
 
   static async readByCategory(request, response) {
     try {
-      const { categoryId } = request.params;
-      const categoryProducts = service.readByCategory(categoryId);
+      const { id } = request.params;
+      const categoryProducts = await service.readByCategory(id);
 
       return response.status(200).send(categoryProducts);
     } catch ({ message }) {
@@ -58,7 +58,7 @@ export default class ProductController {
   static async delete(request, response) {
     try {
       const { id } = request.params;
-      service.delete(id);
+      await service.delete(id);
 
       return response.status(204).send();
     } catch ({ message }) {

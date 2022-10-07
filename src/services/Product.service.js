@@ -60,8 +60,7 @@ export default class ProductService {
       const res = await database.query(
         `
         SELECT
-          prod.name, prod.price,
-          cat.name
+          prod.name, prod.price, cat.name category
         FROM 
           products prod
         LEFT JOIN categories cat ON prod.category_id = cat.id
@@ -71,7 +70,9 @@ export default class ProductService {
       );
 
       return res.rows;
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   static async update(body, id) {
@@ -83,9 +84,10 @@ export default class ProductService {
       keys.forEach((key, index, arr) => {
         query +=
           index === arr.length - 1
-            ? `${key} = \$${index + 1} WHERE id = $3 RETURNING name, id`
+            ? `${key} = \$${index + 1} WHERE id = \$${arr.length + 1} RETURNING name, id`
             : `${key} = \$${index + 1}, `;
       });
+      console.log('ok')
       const res = await database.query(query, [...values, id]);
 
       return { message: 'Product updated', product: res.rows[0] };
@@ -96,10 +98,14 @@ export default class ProductService {
 
   static async delete(id) {
     try {
-      database.query(
-        'DELETE FROM products WHERE id = $1',
+      const res = await database.query(
+        'DELETE FROM products WHERE id = $1 RETURNING *',
         [id]
       );
+
+      if (!res.rows[0]) {
+        throw new Error('Product not found');
+      }
     } catch (error) {
       throw new Error(error);
     }
