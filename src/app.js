@@ -4,7 +4,7 @@ import categoryRoutes from './routes/category.routes';
 import productRoutes from './routes/product.routes';
 import { startDatabase } from './database';
 
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
