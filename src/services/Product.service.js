@@ -23,7 +23,7 @@ export default class ProductService {
     try {
       const res = await database.query(`
         SELECT
-          prod.name, prod.price,
+          prod.id, prod.name, prod.price,
           cat.name category
         FROM products prod
         LEFT JOIN categories cat ON prod.category_id = cat.id
@@ -39,7 +39,7 @@ export default class ProductService {
       const res = await database.query(
         `
         SELECT
-          prod.name, prod.price,
+          prod.id, prod.name, prod.price,
           cat.name category
         FROM 
           products prod
@@ -48,6 +48,10 @@ export default class ProductService {
         `,
         [id]
       );
+
+      if (!res.rows[0]) {
+        throw new Error('Product not found');
+      }
 
       return res.rows[0];
     } catch (error) {
@@ -60,7 +64,7 @@ export default class ProductService {
       const res = await database.query(
         `
         SELECT
-          prod.name, prod.price, cat.name category
+          prod.id, prod.name, prod.price, cat.name category
         FROM 
           products prod
         LEFT JOIN categories cat ON prod.category_id = cat.id
@@ -68,6 +72,10 @@ export default class ProductService {
         `,
         [categoryId]
       );
+
+      if (!res.rows.length) {
+        throw new Error('Product not found');
+      }
 
       return res.rows;
     } catch (error) {
@@ -84,11 +92,17 @@ export default class ProductService {
       keys.forEach((key, index, arr) => {
         query +=
           index === arr.length - 1
-            ? `${key} = \$${index + 1} WHERE id = \$${arr.length + 1} RETURNING name, id`
+            ? `${key} = \$${index + 1} WHERE id = \$${
+                arr.length + 1
+              } RETURNING name, id`
             : `${key} = \$${index + 1}, `;
       });
-      console.log('ok')
+
       const res = await database.query(query, [...values, id]);
+
+      if (!res.rows[0]) {
+        throw new Error('Product not found');
+      }
 
       return { message: 'Product updated', product: res.rows[0] };
     } catch (error) {
