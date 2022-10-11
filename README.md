@@ -1,6 +1,6 @@
 # **CRUD para genrenciamento de produtos e categorias**
 
-Nesta aplicação foi desenvolvida uma Restful API local em `nodeJS`, utilizando-se a biblioteca [express]('https://www.npmjs.com/package/express'), bem como um banco de dados `PostgreSQL` e, por fim, também configurado um ambiente de desenvolvimento com `Docker`.
+Nesta aplicação foi desenvolvida uma Restful API local em [nodeJS](https://nodejs.org/en/docs/), utilizando-se a biblioteca [express](https://www.npmjs.com/package/express), bem como um banco de dados [PostgreSQL](https://www.postgresql.org/docs/) e, por fim, também configurado um ambiente de desenvolvimento com [Docker](https://docs.docker.com/get-started/).
 
 Todas as rotas da API são publicas, assim não se fazendo necessário a utilização de autenticação através de tokens e hasheamento de senhas.
 
@@ -19,7 +19,7 @@ yarn install
 2.  Acesse o arquivo `src/database/index.js` e insira suas credenciais no campo de testes de forma fixa, ou crie um arquivo `.env` na raiz do projeto no mesmo modelo presente em `.env.example` para inserir as variáveis de ambiente. NOTE: Caso você opte pela execução dos testes utilizando as variáveis de ambiente, deixe o campo `NODE_ENV` vazio.
 
 ___
-## **Execução dos testes**
+# **Execução dos testes**
 
 Após configurar corretamente o database, rode o seguinte comando para iniciar os testes:
 
@@ -30,40 +30,50 @@ yarn run test
 O comando setado no script do `package.json` sera executado e os testes presentes em `tests/integrations.spec.js` serão executados. É esperado que todos os testes retornem uma mensagem de sucesso.
 
 ### **A aplicação contém um total de 20 testes, separados em 3 seções:**
-
-```
-ROTA /categories
-√ Criacao de categoria;
-√ Listagem de todas as categorias;
-√ Listagem de uma categoria;
-√ Atualizacao de uma categoria especifica;
-
-ROTA /products
-√ Criacao de produto;
-√ Listagem de todas os produtos;
-√ Listagem de um produto;
-√ Atualizacao de um produto especifico;
-√ Listagem de produtos por id da categoria;
-√ Delecao de um produto;
-√ Delecao de uma categoria;
-
-CASOS DE ERROS NAS ROTAS /categories & /products
-√ Nao permite criacao de duas categorias com nomes iguais;
-√ Nao permite a criacao de um produto sem o nome;
-√ Nao permite a criacao de um produto sem o preco;
-√ Nao permite listar uma categoria inexistente;
-√ Nao permite atualizar uma categoria inexistente;
-√ Nao permite listar um produto inexistente;
-√ Nao permite atualizar um produto inexistente;
-√ Nao permite deletar uma categoria inexistente;
-√ Nao permite deletar um produto inexistente;
-```
 ___
-## **Testes da aplicação através do insomnia**
+
+#### **ROTA /categories**
+Status | Teste
+------ | -----
+√ | Criacao de categoria;
+√ | Listagem de todas as categorias;
+√ | Listagem de uma categoria;
+√ | Atualizacao de uma categoria especifica;
+___
+
+#### **ROTA /products**
+Status | Teste
+------ | -----
+√ | Criacao de produto;
+√ | Listagem de todas os produtos;
+√ | Listagem de um produto;
+√ | Atualizacao de um produto especifico;
+√ | Listagem de produtos por id da categoria;
+√ | Delecao de um produto;
+√ | Delecao de uma categoria;
+
+___
+___
+
+#### **CASOS DE ERROS NAS ROTAS /categories & /products**
+Status | Teste
+------ | -----
+√ | Nao permite criacao de duas categorias com nomes iguais;
+√ | Nao permite a criacao de um produto sem o nome;
+√ | Nao permite a criacao de um produto sem o preco;
+√ | Nao permite listar uma categoria inexistente;
+√ | Nao permite atualizar uma categoria inexistente;
+√ | Nao permite listar um produto inexistente;
+√ | Nao permite atualizar um produto inexistente;
+√ | Nao permite deletar uma categoria inexistente;
+√ | Nao permite deletar um produto inexistente;
+
+___
+# **Testes da aplicação através do insomnia**
 
 Para fazer o teste através do insomnia, inclua no campo de endereço `http://localhost:3000` como *URL* base.
 
-Existem ao todo 11 rotas e 2 endpoints (categories e products), todas publicas (sem a necessidade de um header de autenticação), desenvolvidas 100% respeitando as regras e bons constumes de Restfuls API's. As rotas são:
+Existem ao todo 2 rotas e 11 endpoints, todas publicas (sem a necessidade de um header de autenticação), desenvolvidas 100% respeitando as regras e bons constumes de Restfuls API's. As rotas são:
 ___
 ##  CATEGORIES
 
@@ -276,4 +286,5 @@ ___
 -   **`DELETE products/:id`**: Responsável pela deleção de um produto específico, conforme o *id* que for passado no final do endpoint. Não recebe um corpo de requisição e retorna um *204 (No content)*
 
 ___
+**Acesse o repositório da atividade por [aqui](https://github.com/FranciscoStenico/CRUD-api_express-postgreSQL-dockerCompose).**
 #####   *Idéia do projeto desenvolvida 100% pela equipe de ensino e conteúdo da Kenzie Academy Brasil*
