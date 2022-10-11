@@ -288,3 +288,4 @@ ___
 ___
 **Acesse o repositório da atividade por [aqui](https://github.com/FranciscoStenico/CRUD-api_express-postgreSQL-dockerCompose).**
 #####   *Idéia do projeto desenvolvida 100% pela equipe de ensino e conteúdo da Kenzie Academy Brasil*
+#####	**Desenvolvedor**: Francisco Correr Stenico
