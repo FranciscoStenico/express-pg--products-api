@@ -13,7 +13,7 @@ export default class Ensurances {
       if (!checkFields) {
         return response
           .status(400)
-          .send({ message: `Missing required fields: ${fields.join(" | ")}` });
+          .send({ message: `Missing required fields: ${fields.join(' | ')}` });
       }
 
       next();
@@ -45,6 +45,17 @@ export default class Ensurances {
         } catch ({ message }) {
           return response.status(400).send({ message });
         }
+    }
+  }
+
+  static async categoryExists(request, response, next) {
+    try {
+      const { id } = request.params;
+      await category.readById(id);
+
+      next();
+    } catch (error) {
+      return response.status(404).send({ message: 'Category not found' });
     }
   }
 }

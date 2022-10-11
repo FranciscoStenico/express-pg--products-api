@@ -28,6 +28,7 @@ export default class ProductService {
         FROM products prod
         LEFT JOIN categories cat ON prod.category_id = cat.id
       `);
+
       return res.rows;
     } catch (error) {
       throw new Error(error);
@@ -49,7 +50,7 @@ export default class ProductService {
         [id]
       );
 
-      if (!res.rows[0]) {
+      if (!res.rows.length) {
         throw new Error('Product not found');
       }
 
@@ -72,10 +73,6 @@ export default class ProductService {
         `,
         [categoryId]
       );
-
-      if (!res.rows.length) {
-        throw new Error('Product not found');
-      }
 
       return res.rows;
     } catch (error) {

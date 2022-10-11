@@ -17,6 +17,7 @@ export default class CategoryServices {
   static async read() {
     try {
       const res = await database.query('SELECT * FROM categories');
+
       return res.rows;
     } catch (error) {
       throw new Error(error);
@@ -30,6 +31,10 @@ export default class CategoryServices {
         [id]
       );
 
+      if (!res.rows.length) {
+        throw new Error('Category not found');
+      }
+
       return res.rows[0];
     } catch (error) {
       throw new Error(error);
@@ -42,6 +47,10 @@ export default class CategoryServices {
         'UPDATE categories SET name = $1 WHERE id = $2 RETURNING *',
         [name, id]
       );
+
+      if (!res.rows[0]) {
+        throw new Error('Category not found');
+      }
       
       return { message: 'Category updated', category: res.rows[0] };
     } catch (error) {
@@ -57,7 +66,7 @@ export default class CategoryServices {
       );
 
       if (!res.rows[0]) {
-        throw new Error('Product not found');
+        throw new Error('Category not found');
       }
     } catch (error) {
       throw new Error(error);
